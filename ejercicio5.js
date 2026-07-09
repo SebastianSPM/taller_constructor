@@ -4,7 +4,7 @@ const prompt = require("prompt-sync")();
 let stop = 1;
 let opcion = 0;
 
-function Vehiculo(modelo, marca, placa, color, kilometraje, encendido = false, velocidad = false){
+function Vehiculo(modelo, marca, placa, color, kilometraje, encendido = false, velocidad = 0){
     this.modelo = modelo;
     this.marca = marca;
     this.placa = placa;
@@ -14,12 +14,12 @@ function Vehiculo(modelo, marca, placa, color, kilometraje, encendido = false, v
     this.velocidad = velocidad;
 
     this.avanzar = function(){
-        if(this.encendido) return this.velocidad += 1;
+        if(this.encendido) return `Aumentando: ${this.velocidad += 1}+`;
         return "Primero tienes que encender el vehiculo"
     }
 
     this.parar = function(){
-        if(this.encendido && this.velocidad > 0) return this.velocidad -= 1
+        if(this.encendido && this.velocidad > 0) return `Bajando: ${this.velocidad -=1}-`
         return "El carro esta apagado o no tiene velocidad"
     }
 
@@ -56,13 +56,14 @@ do{
         console.log(CarroUno.informacionVehiculo());
 
     }else if(opcion == 2){
-        console.log(CarroUno.encenderApagar());
+        console.log(CarroUno.encenderApagar() ? "Auto encendido" : "Auto apagado");
 
     }else if(opcion == 3){
         console.log(CarroUno.avanzar());
 
     }else if(opcion == 4){
         console.log(CarroUno.parar());
+
     }else if(opcion == 5){
         stop = 0;
     }else{
