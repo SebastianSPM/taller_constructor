@@ -1,8 +1,9 @@
 const prompt = require("prompt-sync")();
+const menus = require("./menus")
 
-//Variables auxiliares para el menú
 let stop = 1;
 let opcion = 0;
+
 
 function Vehiculo(modelo, marca, placa, color, kilometraje, encendido = false, velocidad = 0){
     this.modelo = modelo;
@@ -24,8 +25,8 @@ function Vehiculo(modelo, marca, placa, color, kilometraje, encendido = false, v
     }
 
     this.encenderApagar = function(){
-        if(this.encendido) return this.encendido = false;
-        return this.encendido = true;
+        if(this.encendido) return !this.encendido;
+        return this.encendido;
     }
 
     this.informacionVehiculo = function(){
@@ -42,33 +43,36 @@ function Vehiculo(modelo, marca, placa, color, kilometraje, encendido = false, v
 
 const CarroUno = new Vehiculo("2019", "Toyota", "KLX209", "Blanco", 0);
 
-do{
-    console.log("\n--- MENU DE COCHE ---");
-    console.log("1) Información del coche");
-    console.log("2) Encender/apagar coche");
-    console.log("3) Aumentar velocidad coche");
-    console.log("4) Bajar/parar velocidad coche");
-    console.log("5) Salor del menú\n");
+const ejercicioCinco = () => {
+    //Variables auxiliares para el menú
+
+    do{
+        
+        menus.menuCarro()
+        opcion = prompt("Selecciona una de las opciones: ");
     
-    opcion = prompt("Selecciona una de las opciones: ");
-
-    if(opcion == 1){
-        console.log(CarroUno.informacionVehiculo());
-
-    }else if(opcion == 2){
-        console.log(CarroUno.encenderApagar() ? "Auto encendido" : "Auto apagado");
-
-    }else if(opcion == 3){
-        console.log(CarroUno.avanzar());
-
-    }else if(opcion == 4){
-        console.log(CarroUno.parar());
-
-    }else if(opcion == 5){
-        stop = 0;
-    }else{
-        console.log("\nSelecciona otra opción que exista...\n");
-    }
+        if(opcion == 1){
+            console.log(CarroUno.informacionVehiculo());
     
+        }else if(opcion == 2){
+            console.log(CarroUno.encenderApagar() ? "Auto encendido" : "Auto apagado");
+    
+        }else if(opcion == 3){
+            console.log(CarroUno.avanzar());
+    
+        }else if(opcion == 4){
+            console.log(CarroUno.parar());
+    
+        }else if(opcion == 5){
+            stop = 0;
+        }else{
+            console.log("\nSelecciona otra opción que exista...\n");
+        }
+        
+    
+    }while(stop != 0);
+}
 
-}while(stop != 0);
+module.exports = {
+    opcion5: ejercicioCinco
+}

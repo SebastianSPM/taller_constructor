@@ -5,7 +5,10 @@ function Mascota(nombre, especie, edad, peso){
     this.peso = peso;
 
     this.presentarse = function(){
-        console.log(`\nHola, me llamo ${nombre}, soy de especie ${especie}, tengo ${edad} año y peso ${peso} kg\n`);
+        console.log(`
+            \nHola, me llamo ${nombre}, soy de especie 
+            ${especie}, tengo ${edad} año y peso ${peso} kg\n
+        `);
     }
 }
 
@@ -14,6 +17,12 @@ const perroDos = new Mascota("Destructor", "Chihuahua", 4, 3);
 const perroTres = new Mascota("Zeús", "Pastor Alemán", 7, 30);
 
 
-perroUno.presentarse();
-perroDos.presentarse();
-perroTres.presentarse();
+const ejercicioDos = () => {
+    perroUno.presentarse();
+    perroDos.presentarse();
+    perroTres.presentarse();
+}
+
+module.exports = {
+    opcion2: ejercicioDos
+}

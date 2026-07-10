@@ -9,7 +9,12 @@ function Estudiante(nombre, id_estudiante, curso, nota){
     }
 
     this.mostrarResultado = function(){
-        console.log(`\nAlumno: ${nombre} con id ${id_estudiante} del curso ${curso} `, this.calculada() ? "APROBO" : "REPROBO", "\n");
+        console.log(`
+            \nAlumno: ${nombre}
+              id: ${id_estudiante}
+              Curso: ${curso} 
+              resultado: `, this.calculada() ? "APROBO" : "REPROBO", "\n"
+        );
     }
 }
 
@@ -19,7 +24,13 @@ const estudianteTres = new Estudiante("Fernanda", "637426", "Informática", 4.6)
 const estudianteCuatro = new Estudiante("Luisa", "092654", "Español", 2.0);
 
 
-estudianteUno.mostrarResultado();
-estudianteDos.mostrarResultado();
-estudianteTres.mostrarResultado();
-estudianteCuatro.mostrarResultado();
+const ejercicioTres = () => {
+    estudianteUno.mostrarResultado();
+    estudianteDos.mostrarResultado();
+    estudianteTres.mostrarResultado();
+    estudianteCuatro.mostrarResultado();
+}
+
+module.exports = {
+    opcion3: ejercicioTres
+}
