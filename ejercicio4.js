@@ -5,6 +5,8 @@ const menus = require("./menus")
 let stop = 1;
 let opcion = 0;
 let LibroEscogido = "";
+let aux = "";
+let libroEncontrado = false;
 
 
 function Libro(ISBN, id_libro, autor, prestado = false, titulo, idioma, descripcion){
@@ -18,17 +20,17 @@ function Libro(ISBN, id_libro, autor, prestado = false, titulo, idioma, descripc
 
     this.prestar = function(){
         if(!prestado){
-            console.log("Se puede prestar el libro");
+            return "Se puede prestar el libro";
         }else{
-            console.log("No se puede prestar el libro");
+            return "No se puede prestar el libro";
         }
     }
 
     this.devolver = function(){
         if(prestado){
-            console.log("Tienes que devolver el libro");   
+            return "Tienes que devolver el libro";   
         }else{
-            console.log("El libro ya esta devuelvo");
+            return "El libro ya esta devuelvo";
         }
     }
 }
@@ -57,6 +59,7 @@ const libro3 = new Libro(
     "9780451524935",
     "la_102",
     "George Orwell",
+    false,
     "1984",
     "es",
     "Una novela distópica que muestra una sociedad controlada por un régimen totalitario y la vigilancia constante."
@@ -66,6 +69,7 @@ const libro4 = new Libro(
     "9780307476463",
     "la_104",
     "Paulo Coelho",
+    false,
     "El Alquimista",
     "es",
     "La aventura de un joven pastor que busca cumplir su leyenda personal y descubrir un gran tesoro."
@@ -82,32 +86,65 @@ const ejercicioCuatro = () => {
 
     do{
         menus.menuLibro()
-        opcion = parseInt(prompt("Selecciona una de las opciones: "));
+        opcion = parseInt(prompt("\nSelecciona una de las opciones: "));
     
         if(opcion == 1){
     
+            console.log("\n --- LIBROS ---\n");
+            
             for(let libro of libros){
                 console.log(`
-                Título: ${libro.titulo}
-                Autor: ${libro.autor}
-                Descripción: ${libro.descripcion}\n
+                Título: ${libro.titulo};
+                Autor: ${libro.autor};
+                Disponible: ${libro.prestado ? "NO" : "SI"};
+                Descripción: ${libro.descripcion};
                 `);
             }
     
         }else if(opcion == 2){
             do{
-                LibroEscogido = prompt("Escribe el libro que quieres prestar: ")
-                if(LibroEscogido.length > 0){
-                    console.log("\nNo escogiste ningun libro\n");
+                LibroEscogido = prompt("\nEscribe el libro que quieres prestar: ").toLowerCase()
+                if(LibroEscogido.length <= 0){
+                    console.log("\nNo haz escrito nada\n");
                 }else{
-                    LibroEscogido = prompt("¿Quieres escoger otro libro?: ")
+                    libroEncontrado = false;
+                    for(let libro of libros){
+                        if(libro.titulo.toLowerCase() == LibroEscogido){
+                            console.log(libro.prestar());
+                            libroEncontrado = true;
+                            break;
+                        }
+                    }
+
+                    if(!libroEncontrado){
+                        console.log("\nLibro no encontrado...\n");
+                        
+                    }
+                    aux = prompt("\n¿Quieres escoger otro libro?(si/no): ").toLowerCase()
+                    if(aux == "no"){
+                        stop = 0;
+                    }
                 }
             }while(stop != 0);
             stop = 1;
     
         }else if(opcion == 3){
-            //console.log(CarroUno.avanzar());
-    
+            LibroEscogido = prompt("\nEscribe el nombre del libro que deseas regresar: ")
+            
+            libroEncontrado = false;
+            for(let libro of libros){
+                if(libro.titulo.toLowerCase() == LibroEscogido()){
+                    console.log(`\n ${libro.devolver()}\n`);
+                    libroEncontrado = true;
+                    break;
+                }
+            }
+
+            if(!libroEncontrado){
+                console.log("\nLibro no encontrado...\n");
+            }
+
+
         }else if(opcion == 4){
             stop = 0;
         }else{
